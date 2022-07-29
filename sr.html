@@ -34,7 +34,7 @@
 	<script>
 		function buttonCopyFunction(e) {
 			let command = `!sr ${e.innerHTML}`;
-			navigator.clipboard.writeText(command);
+			navigator.clipboard.writeText(`!sr ${e.innerHTML}`);
 
 			/* Alert the copied text */
 			alert(`Copied to clipboard: ${command}`);
