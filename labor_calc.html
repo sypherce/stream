@@ -19,13 +19,13 @@ video {
 
 <form>
   <label for="gross">Gross Sales:</label>
-  <input type="number" id="gross" name="gross" value="<?php echo $_GET["gross"] ?>"><br>
+  <input type="number" id="gross" name="gross" min="1"  value="<?php echo $_GET["gross"] ?>"><br>
   <label for="dollars">Labor $:</label>
-  <input type="number" id="dollars" name="dollars" value="<?php echo $_GET["dollars"] ?>"><br>
+  <input type="number" id="dollars" name="dollars" min="1" value="<?php echo $_GET["dollars"] ?>"><br>
   <label for="hours">Labor Hours:</label>
-  <input type="number" id="hours" name="hours" value="<?php echo $_GET["hours"] ?>"><br>
+  <input type="number" id="hours" name="hours" min="1" value="<?php echo $_GET["hours"] ?>"><br>
   <label for="percent">Labor %:</label>
-  <input type="number" id="percent" name="percent" value="19.8"><br>
+  <input type="number" id="percent" name="percent" min="1" value="19.8"><br>
   <br>
 	current:<br>
     Labor %: <input type="text" name="sum"><br>
