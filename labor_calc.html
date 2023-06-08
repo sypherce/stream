@@ -52,23 +52,20 @@ body {
 		<td><input type="number" id="hours" name="hours" min="1" value=""><br></td>
 		</tr>
 		<tr>
-		<td><label for="percent">Labor %:</label></td>
+		<td><label for="percent">Labor Goal:</label></td>
 		<td><input type="number" id="percent" name="percent" min="1" value=""></td>
 		</tr>
 		<tr>
-		<td>Current:</td>
-		<td><hr></td>
-		</tr>
-		<tr>
-		<td>Labor %:</td>
-		<td><input type="string" name="sum" readonly></td>
-		</tr>
-		<tr>
-		<td><label for="staff" name="staff_label">Over Staffed:</label></td>
-		<td><input type="string" id="staff" name="staff" readonly></td>
+		<td colspan="2"><hr></td>
 		</tr>
 		<tr>
 			<td colspan="2"><label name="staff_thumb"><span style="font-size:1000%;">👎</span></label></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label name="sum"></td>
+		</tr>
+		<tr>
+		<td><label name="staff_label">Over Staffed:</label></td>
 		</tr>
 		</tbody>
 		</table>
@@ -103,29 +100,26 @@ body {
 
 		let sum = Number(dollars.value) / Number(gross.value) * 100;
 		sum = parseFloat(sum.toFixed(2));
-		document.getElementsByName("sum")[0].value = sum;
+		document.getElementsByName("sum")[0].innerHTML = `${sum}% Labor`;
 
 		if(avgWage <= 0)
 			document.getElementsByName("staff")[0].value = 0;
 
 		const staff_number = (( (grossSales * laborGoal) - laborDollars ) / avgWage).toFixed(2);
 		if(staff_number < 0.0) {
-			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over</span> Staffed:`;
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over</span> Staffed ${-staff_number} Hours`;
 			document.getElementsByName("staff_thumb")[0].innerHTML = `<span style="font-size:1000%;">👎</span>`;
 		}
 		else {
-			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under</span> Staffed:`;
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under</span> Staffed ${staff_number} Hours`;
 			document.getElementsByName("staff_thumb")[0].innerHTML = `<span style="font-size:1000%;">👍</span>`;
 		}
-
-		document.getElementsByName("staff")[0].value = staff_number + " hours";
 	}
 
 	gross.addEventListener("input", calcHours);
 	dollars.addEventListener("input", calcHours);
 	hours.addEventListener("input", calcHours);
 	percent.addEventListener("input", calcHours);
-	staff.addEventListener("input", calcHours);
 	loadStorage();
 	calcHours();
 </script>
