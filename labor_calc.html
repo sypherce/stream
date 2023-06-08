@@ -109,9 +109,9 @@ body {
 
 		const staff_number = (( (grossSales * laborGoal) - laborDollars ) / avgWage).toFixed(2);
 		if(staff_number < 0.0)
-			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over Staffed</span>`;
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over</span> Staffed:`;
 		else
-			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under Staffed</span>`;
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under</span> Staffed:`;
 
 		document.getElementsByName("staff")[0].value = staff_number + " hours";
 	}
