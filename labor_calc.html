@@ -66,8 +66,8 @@ body {
 		<td><input type="string" name="sum" readonly></td>
 		</tr>
 		<tr>
-		<td><label for="staff" name="staff_label">+Under/-Over Staffed:</label></td>
-		<td><input type="string" id="staff" name="staff"><br></td>
+		<td><label for="staff" name="staff_label" readonly>Over Staffed:</label></td>
+		<td><input type="string" id="staff" name="staff" readonly></td>
 		</tr>
 		</tbody>
 		</table>
@@ -86,10 +86,6 @@ body {
 		gross.value = localStorage.getItem("gross");
 		percent.value = localStorage.getItem("percent");
 		dollars.value = localStorage.getItem("dollars");
-		hours.value = 1;
-		gross.value = 1;
-		percent.value = 1;
-		dollars.value = 1;
 
 		if(percent.value === null || percent.value <= 1)
 			percent.value = "19.8";
