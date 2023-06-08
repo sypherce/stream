@@ -7,14 +7,34 @@
 		--color-bg: #000000;
 		--color-fg: #ffffff;
 		--color-dim: #444444;
+		--color-alternate: #212121;
 }
-
+input[type="number"]{
+	width: 90%;
+	padding: 12px;
+	float: right;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-sizing: border-box;
+	resize: vertical;
+}
 @media (prefers-color-scheme: light) {
 	:root {
 		--color-bg: #ffffff;
 		--color-fg: #000000;
 		--color-dim: #cccccc;
+		--color-alternate: #dedede;
 	}
+}
+td {
+	padding: 10;
+	border-radius: 16px;
+}
+table {
+	width:100%;
+}
+#alternate {
+	background-color: var(--color-alternate);
 }
 
 input[type="number"] {
@@ -37,26 +57,25 @@ body {
 
 <form>
 
-	<table class="blueTable">
+	<table>
 		<tbody>
-		<tr>
-		<td><label for="gross">Gross Sales:</label></td>
-		<td><input type="number" id="gross" name="gross" min="1" value=""></td>
+		<tr id="alternate">
+		<td colspan="2" id="alternate" ><label for="gross">Gross Sales:</label><br><input type="number" id="gross" name="gross" min="1" value=""></td>
 		</tr>
 		<tr>
-		<td><label for="dollars">Labor $:</label></td>
-		<td><input type="number" id="dollars" name="dollars" min="1" value=""></td>
+		<td colspan="2"><label for="dollars">Labor $:</label><br>
+		<input type="number" id="dollars" name="dollars" min="1" value=""></td>
+		</tr>
+		<tr colspan="2" id="alternate">
+		<td><label for="hours">Labor Hours:</label><br>
+		<input type="number" id="hours" name="hours" min="1" value=""></td>
 		</tr>
 		<tr>
-		<td><label for="hours">Labor Hours:</label></td>
-		<td><input type="number" id="hours" name="hours" min="1" value=""><br></td>
+		<td colspan="2"><label for="percent">Labor Goal:</label><br>
+		<input type="number" id="percent" name="percent" min="1" value=""></td>
 		</tr>
-		<tr>
-		<td><label for="percent">Labor Goal:</label></td>
-		<td><input type="number" id="percent" name="percent" min="1" value=""></td>
-		</tr>
-		<tr>
-		<td colspan="2"><hr></td>
+		<tr id="alternate">
+		<td colspan="2"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><label name="staff_thumb"><span style="font-size:1000%;">👎</span></label></td>
