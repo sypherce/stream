@@ -1,9 +1,7 @@
-<?php header("Access-Control-Allow-Origin: *"); ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<!-- <link rel="stylesheet" href="style.css?time=<?php echo time();?>"> -->
 <style>
 	:root {
 		--color-bg: #000000;
@@ -70,7 +68,7 @@ body {
 		<td><input type="string" id="staff" name="staff" readonly></td>
 		</tr>
 		<tr>
-			<td colspan="2"><label name="staff_thumb"><span style="font-size:500%'">>👎</span></label></td>
+			<td colspan="2"><label name="staff_thumb"><span style="font-size:1000%;">👎</span></label></td>
 		</tr>
 		</tbody>
 		</table>
@@ -111,10 +109,14 @@ body {
 			document.getElementsByName("staff")[0].value = 0;
 
 		const staff_number = (( (grossSales * laborGoal) - laborDollars ) / avgWage).toFixed(2);
-		if(staff_number < 0.0)
-			document.getElementsByName("staff_label")[0].innerHTML = `👎<span style="color:red">Over</span> Staffed:`;
-		else
-			document.getElementsByName("staff_label")[0].innerHTML = `👍<span style="color:green">Under</span> Staffed:`;
+		if(staff_number < 0.0) {
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over</span> Staffed:`;
+			document.getElementsByName("staff_thumb")[0].innerHTML = `<span style="font-size:1000%;">👎</span>`;
+		}
+		else {
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under</span> Staffed:`;
+			document.getElementsByName("staff_thumb")[0].innerHTML = `<span style="font-size:1000%;">👍</span>`;
+		}
 
 		document.getElementsByName("staff")[0].value = staff_number + " hours";
 	}
