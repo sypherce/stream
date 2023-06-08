@@ -5,80 +5,124 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <!-- <link rel="stylesheet" href="style.css?time=<?php echo time();?>"> -->
 <style>
-video {
-	left: 0;
-	top: 0;
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	position: absolute;
+	:root {
+		--color-bg: #000000;
+		--color-fg: #ffffff;
+		--color-dim: #444444;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-bg: #ffffff;
+		--color-fg: #000000;
+		--color-dim: #cccccc;
+	}
+}
+
+input[type="number"] {
+	background-color: var(--color-dim);
+	color: var(--color-fg);
+}
+
+input[type="string"] {
+	background-color: var(--bg);
+	color: var(--color-fg);
+}
+
+body {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
 }
 </style>
 </head>
 <body>
 
 <form>
-  <label for="gross">Gross Sales:</label>
-  <input type="number" id="gross" name="gross" min="1"  value="<?php echo $_GET["gross"] ?>"><br>
-  <label for="dollars">Labor $:</label>
-  <input type="number" id="dollars" name="dollars" min="1" value="<?php echo $_GET["dollars"] ?>"><br>
-  <label for="hours">Labor Hours:</label>
-  <input type="number" id="hours" name="hours" min="1" value="<?php echo $_GET["hours"] ?>"><br>
-  <label for="percent">Labor %:</label>
-  <input type="number" id="percent" name="percent" min="1" value="19.8"><br>
-  <br>
-	current:<br>
-    Labor %: <input type="text" name="sum"><br>
-	<label for="staff">+Under/-Over Staffed:</label>
-	<input type="number" id="staff" name="staff"><br>
+
+	<table class="blueTable">
+		<tbody>
+		<tr>
+		<td><label for="gross">Gross Sales:</label></td>
+		<td><input type="number" id="gross" name="gross" min="1" value=""></td>
+		</tr>
+		<tr>
+		<td><label for="dollars">Labor $:</label></td>
+		<td><input type="number" id="dollars" name="dollars" min="1" value=""></td>
+		</tr>
+		<tr>
+		<td><label for="hours">Labor Hours:</label></td>
+		<td><input type="number" id="hours" name="hours" min="1" value=""><br></td>
+		</tr>
+		<tr>
+		<td><label for="percent">Labor %:</label></td>
+		<td><input type="number" id="percent" name="percent" min="1" value=""></td>
+		</tr>
+		<tr>
+		<td>current:</td>
+		<td><hr></td>
+		</tr>
+		<tr>
+		<td>Labor %:</td>
+		<td><input type="string" name="sum" readonly></td>
+		</tr>
+		<tr>
+		<td><label for="staff" name="staff_label">+Under/-Over Staffed:</label></td>
+		<td><input type="string" id="staff" name="staff" readonly><br></td>
+		</tr>
+		</tbody>
+		</table>
 </form>
 
 <script>
+	const gross = document.getElementById("gross");
+	const dollars = document.getElementById("dollars");
+	const hours = document.getElementById("hours");
+	const percent = document.getElementById("percent");
+	const staff = document.getElementById("staff");
+	const input = document.querySelector("input");
 
-const gross = document.getElementById("gross");
-const dollars = document.getElementById("dollars");
-const hours = document.getElementById("hours");
-const percent = document.getElementById("percent");
-const staff = document.getElementById("staff");
-const input = document.querySelector("input");
+	function loadStorage() {
+		hours.value = localStorage.getItem("hours");
+		gross.value = localStorage.getItem("gross");
+		percent.value = localStorage.getItem("percent");
+		dollars.value = localStorage.getItem("dollars");
 
-    function calcHours() {
+		if(percent.value === null || percent.value <= 1)
+			percent.value = "19.8";
+	}
+	function calcHours() {
 		const avgWage = Number(dollars.value) / Number(hours.value);
+			localStorage.setItem("hours", Number(hours.value));
 		const grossSales = Number(gross.value)
+			localStorage.setItem("gross", grossSales);
 		const laborGoal = Number(percent.value) / 100
+			localStorage.setItem("percent", Number(percent.value));
 		const laborDollars = Number(dollars.value)
+			localStorage.setItem("dollars", laborDollars);
 
-
-        let sum = Number(dollars.value) / Number(gross.value) * 100;
+		let sum = Number(dollars.value) / Number(gross.value) * 100;
 		sum = parseFloat(sum.toFixed(2));
-        document.getElementsByName("sum")[0].value = sum;
+		document.getElementsByName("sum")[0].value = sum;
 
 		if(avgWage <= 0)
-	        document.getElementsByName("staff")[0].value = 0;
+			document.getElementsByName("staff")[0].value = 0;
 
-        document.getElementsByName("staff")[0].value = (( (grossSales * laborGoal) - laborDollars ) / avgWage).toFixed(2);
+		const staff_number = (( (grossSales * laborGoal) - laborDollars ) / avgWage).toFixed(2);
+		if(staff_number < 0.0)
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:red">Over Staffed</span>`;
+		else
+			document.getElementsByName("staff_label")[0].innerHTML = `<span style="color:green">Under Staffed</span>`;
+
+		document.getElementsByName("staff")[0].value = staff_number + " hours";
 	}
-
 
 	gross.addEventListener("input", calcHours);
 	dollars.addEventListener("input", calcHours);
 	hours.addEventListener("input", calcHours);
 	percent.addEventListener("input", calcHours);
 	staff.addEventListener("input", calcHours);
+	loadStorage();
 	calcHours();
-
-
 </script>
-
-<!--
-
-<script  type="module" src="index.js?time=<?php echo time();?>"></script>
-<script src="howler.min.js?time=<?php echo time();?>"></script>
-<script  type="module" src="client.js?time=<?php echo time();?>"></script>
-<div class="video_div_class" id="video_div"></div>
-<div id="content"></div>
-
--->
-
 </body>
 </html>
