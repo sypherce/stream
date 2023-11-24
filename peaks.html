@@ -1,33 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Peaks.js Example</title>
+</head>
 <body>
-	<audio controls  id="audio">
-		<source src="jedi31177.mp3" type="audio/mpeg"></audio>
-	<script src="https://unpkg.com/peaks.js/dist/peaks.js"></script>
-  <div id="zoomview-container">x</div>
-  <div id="overview-container">y</div>
+<div id="container" style="
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	right: 0;">x</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.js"></script>
+<script src="https://unpkg.com/peaks.js/dist/peaks.js"></script>
 <script>
-(function(Peaks) {
-  const options = {
-    zoomview: {
-      container: document.getElementById('zoomview-container')
-    },
-    overview: {
-      container: document.getElementById('overview-container')
-    },
-    mediaElement: document.getElementById('audio'),
-    webAudio: {
-      audioContext: new AudioContext()
-    }
-  };
+function PlayPeaksSound(filename = 'jedi31177.mp3', key = [1000, 1000], nextSoundFunction) {
+	const width = 100/2;
+	const sound = new Howl({
+	src: filename,
+	sprite: {
+		key1: key
+	},
+	loop: false,
+	onend: function() {
+		console.log('onend')
+		if(typeof nextSoundFunction !== 'undefined') {
+			 nextSoundFunction.play('key1');
+		}
+  }
+});
+const audio = (() =>  {
+	const audio = document.createElement("AUDIO");
+	audio.setAttribute("src",filename);
+	return audio;
+})();
+const div = (() => {
+	const div = document.createElement("DIV");
+	div.setAttribute("style", `width: ${width}vw;height: 100vh;
+    display:inline-block`);
 
-  Peaks.init(options, function(err, peaks) {
-    if (err) {
-      console.error(`Failed to initialize Peaks instance: ${err.message}`);
-      return;
-    }
+	document.getElementById("container").prepend(div);
 
-    // Do something when the waveform is displayed and ready
-  });
-})(peaks);
+	return div;
+})();
+sound.on("play",function() {
+	let start_time = key[0] / 1000.0;
+	let duration = key[1] / 1000.0;
+		duration = duration > sound.duration('key1') ? sound.duration('key1') : duration;
+		start_time = start_time > duration ? duration : start_time;
+	let end_time = (key[0] + key[1]) / 1000.0;
+		end_time = end_time > duration ? duration : end_time;
+	const options = {
+		zoomLevels: [1, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192],
+		segments: [
+			{
+				startTime: start_time,
+				endTime: end_time,
+				editable: false,
+				color: "#ff0000",
+				labelText: filename
+			}],
+		mediaElement: audio,
+		zoomview: {
+			playheadColor: 'rgba(255, 0, 255, 1)',
+			autoScroll: false,
+			container: div,
+			formatPlayheadTime: function (time){
+				return String(time*1000);
+			},
+			formatAxisTime: function (time){
+				return String(time*100);
+
+			},
+		},
+		player: {
+			externalPlayer: sound,
+			eventEmitter: null,
+			init: function(eventEmitter) {
+				this.eventEmitter = eventEmitter;
+				return Promise.resolve();
+			},
+			destroy: function() {
+				this.externalPlayer = null;
+				this.eventEmitter = null;
+			},
+			play: function() {
+				sound.play('key1');
+			},
+			pause: function() {
+				sound.pause('key1');
+			},
+			seek: function(time) {
+				sound.seek(time, 'key1');
+			},
+			isPlaying: function() {
+				return sound.playing('key1');
+			},
+			isSeeking: function() {
+				return false;
+			},
+			getCurrentTime: function() {
+				return sound.seek();
+			},
+			getDuration: function() {
+				return sound.duration('key1');
+			},
+		},
+		webAudio: {
+			audioContext: new (window.AudioContext || window.webkitAudioContext)(),
+		}
+	};
+
+	peaks.init(options, function(err, peaks) {
+		if(err) {
+			console.error(`Failed to initialize Peaks instance: ${err.message}`);
+			return;
+		}
+		//peaks.player.play();
+		const zoom_view = peaks.views.getView('zoomview');
+		//zoom_view.enableAutoScroll(true, { offset: 10 });
+		zoom_view.setZoom({ seconds: duration });
+		zoom_view.setStartTime(start_time);
+	});
+});
+
+return sound;
+}
+PlayPeaksSound('mgow.mp3', [0, 600],
+	PlayPeaksSound('banshee.mp3', [400, 1000]
+)).play('key1');
 </script>
-
 </body>
+</html>
