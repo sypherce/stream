@@ -2,16 +2,15 @@
 	<head>
 		<meta charset="UTF-8" />
 		<style>
-			@media (prefers-color-scheme: dark) {
-				:root {
-					--text-color: #fff;
-					--background-color: #000;
-					--border-color: #fff;
-					--alt-color: #222;
-					--header-color: #000;
-					--header-background: #fff;
-				}
+			:root {
+				--text-color: #fff;
+				--background-color: #000;
+				--border-color: #fff;
+				--alt-color: #222;
+				--header-color: #000;
+				--header-background: #fff;
 			}
+
 			@media (prefers-color-scheme: light) {
 				:root {
 					--text-color: #000;
@@ -22,19 +21,47 @@
 					--header-background: #000;
 				}
 			}
+
 			body {
 				background-color: var(--background-color);
 				color: var(--text-color);
 			}
 		</style>
 	</head>
+
 	<body>
-		1 'en_male_m03_classical',<br />
-		2 'en_male_m03_lobby',<br />
-		3 'en_male_m03_sunshine_soon',<br />
-		4 'en_male_m2_xhxs_m03_christmas',<br />
-		5 'en_male_m2_xhxs_m03_silly',<br />
-		6 'en_male_sing_deep_jingle',<br />
-		7 'en_male_sing_funny_thanksgiving',<br />
+		<script>
+			const voices = [
+				`0. 'en_male_m03_classical'`,
+				`1. 'en_male_m03_lobby'`,
+				`2. 'en_male_m03_sunshine_soon'`,
+				`3. 'en_male_m2_xhxs_m03_christmas'`,
+				`4. 'en_male_m2_xhxs_m03_silly'`,
+				`5. 'en_male_sing_deep_jingle'`,
+				`6. 'en_male_sing_funny_thanksgiving'`,
+			];
+
+			function playMusic(line) {
+				const music = new Audio(`tts/ttsing${line}.mp3`);
+				music.play();
+			}
+
+			window.onload = function () {
+				const voicesContainer = document.createElement('div');
+				voicesContainer.setAttribute('id', 'voices-container');
+				document.body.appendChild(voicesContainer);
+
+				voices.forEach((voice, index) => {
+					const voiceLine = document.createElement('div');
+					const previewButton = document.createElement('input');
+					previewButton.setAttribute('type', 'button');
+					previewButton.setAttribute('value', 'Preview');
+					previewButton.setAttribute('onclick', `playMusic(${index})`);
+					voiceLine.appendChild(previewButton);
+					voiceLine.appendChild(document.createTextNode(' ' + voice)); // Add voice text with space
+					voicesContainer.appendChild(voiceLine);
+				});
+			};
+		</script>
 	</body>
 </html>
