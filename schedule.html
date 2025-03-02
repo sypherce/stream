@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0;url=https://notebook.zohopublic.com/public/notes/8qqagab9d207c43014574bfbdff71de513e20">
     <title>Redirecting...</title>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const password = urlParams.get('password');
+        const correctPassword = "20250302";
+
+        if (password === correctPassword) {
+            window.location.href = "https://notebook.zohopublic.com/public/notes/8qqagab9d207c43014574bfbdff71de513e20";
+        } else {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.innerHTML = "<p>Access Denied. Incorrect password.</p>";
+            });
+        }
+    </script>
 </head>
 <body>
     <p>If you are not redirected automatically, <a href="https://notebook.zohopublic.com/public/notes/8qqagab9d207c43014574bfbdff71de513e20">click here</a>.</p>
