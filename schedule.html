@@ -12,16 +12,22 @@
         const urlParams = new URLSearchParams(window.location.search);
         const variable = urlParams.get('variable');
 
-        const eP = "MjAyNTAzMDI=";
+        const eP = "MjAyNTA0MDc=";
         const eU = "aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOHFxYWdhYjlkMjA3YzQzMDE0NTc0YmZiZGZmNzFkZTUxM2UyMA==";
 
-        if (variable === d(eP)) {
-            window.location.href = d(eU);
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => {
+            if (variable === d(eP)) {
+                const link = document.createElement("a");
+                link.href = d(eU);
+                link.textContent = "Click here to continue";
+                link.style.fontSize = "1.2em";
+                link.style.color = "#3366cc";
+                link.style.textDecoration = "underline";
+                document.body.appendChild(link);
+            } else {
                 document.body.innerHTML = "<p>Expired.</p>";
-            });
-        }
+            }
+        });
     </script>
 </head>
 <body>
