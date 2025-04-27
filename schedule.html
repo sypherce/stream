@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <script>
-        function d(str) {
-            return atob(str);
-        }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Redirecting...</title>
+		<script>
+			function d(str) {
+				return atob(str);
+			}
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const variable = urlParams.get('variable');
+			const urlParams = new URLSearchParams(window.location.search);
+			const variable = urlParams.get('variable');
 
-        const eP = "MjAyNTA0MDc=";
-        const eU = "aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOHFxYWdhYjlkMjA3YzQzMDE0NTc0YmZiZGZmNzFkZTUxM2UyMA==";
+			const eP = 'MjAyNTA0MjY=';
+			const eU = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOHFxYWdhYjlkMjA3YzQzMDE0NTc0YmZiZGZmNzFkZTUxM2UyMA==';
 
-        document.addEventListener("DOMContentLoaded", () => {
-            if (variable === d(eP)) {
-                const link = document.createElement("a");
-                link.href = d(eU);
-                link.textContent = "Click here to continue";
-                link.style.fontSize = "1.2em";
-                link.style.color = "#3366cc";
-                link.style.textDecoration = "underline";
-                document.body.appendChild(link);
-            } else {
-                document.body.innerHTML = "<p>Expired. Please check for the group chat for a new link.</p>";
-            }
-        });
-    </script>
-</head>
-<body>
-</body>
+			document.addEventListener('DOMContentLoaded', () => {
+				if (variable === d(eP)) {
+					const link = document.createElement('a');
+					link.href = d(eU);
+					link.textContent = 'Click here to continue';
+					link.style.fontSize = '1.2em';
+					link.style.color = '#3366cc';
+					link.style.textDecoration = 'underline';
+					document.body.appendChild(link);
+				} else {
+					document.body.innerHTML = '<p>Expired.</p>';
+				}
+			});
+		</script>
+	</head>
+	<body></body>
 </html>
