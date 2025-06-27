@@ -12,19 +12,31 @@
 			const urlParams = new URLSearchParams(window.location.search);
 			const variable = urlParams.get('variable');
 
-			const eP = 'MjAyNTA0MjY=';
-			const eU = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOHFxYWdhYjlkMjA3YzQzMDE0NTc0YmZiZGZmNzFkZTUxM2UyMA==';
+			const eP1 = 'MjAyNTA0MjY=';
+			const eU1 = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOHFxYWdhYjlkMjA3YzQzMDE0NTc0YmZiZGZmNzFkZTUxM2UyMA==';
+
+			const eP2 = 'MjAyNTA2Mjc=';
+			const eU2 = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOXd oMHhlZWZiMzE4MWFlNDA0ODA3ODU0MTZiMDBhMjdmZDE0Nw==';
 
 			document.addEventListener('DOMContentLoaded', () => {
-				if (variable === d(eP)) {
+				if (variable === d(eP1)) {
 					const link = document.createElement('a');
-					link.href = d(eU);
+					link.href = d(eU1);
 					link.textContent = 'Click here to continue';
 					link.style.fontSize = '1.2em';
 					link.style.color = '#3366cc';
 					link.style.textDecoration = 'underline';
 					document.body.appendChild(link);
-				} else {
+				}
+				else if (variable === d(eP2)) {
+					const link = document.createElement('a');
+					link.href = d(eU2);
+					link.textContent = 'Click here to continue';
+					link.style.fontSize = '1.2em';
+					link.style.color = '#3366cc';
+					link.style.textDecoration = 'underline';
+					document.body.appendChild(link);
+				}else {
 					document.body.innerHTML = '<p>Expired.</p>';
 				}
 			});
