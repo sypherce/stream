@@ -18,6 +18,9 @@
 			const eP2 = 'MjAyNTA2Mjc=';
 			const eU2 = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvOXd oMHhlZWZiMzE4MWFlNDA0ODA3ODU0MTZiMDBhMjdmZDE0Nw==';
 
+			const eP3 = 'MjAyNTEyMDI=';
+			const eU3 = 'aHR0cHM6Ly9ub3RlYm9vay56b2hvcHVibGljLmNvbS9wdWJsaWMvbm90ZXMvbW93MXU5ZTJhNmU2YTczZDc0OWVmYjFkNmY1OTYzZjkzNGY0Mw==';
+
 			document.addEventListener('DOMContentLoaded', () => {
 				if (variable === d(eP1)) {
 					const link = document.createElement('a');
@@ -36,7 +39,16 @@
 					link.style.color = '#3366cc';
 					link.style.textDecoration = 'underline';
 					document.body.appendChild(link);
-				}else {
+				}
+				else if (variable === d(eP3)) {
+					const link = document.createElement('a');
+					link.href = d(eU3);
+					link.textContent = 'Click here to continue';
+					link.style.fontSize = '1.2em';
+					link.style.color = '#3366cc';
+					link.style.textDecoration = 'underline';
+					document.body.appendChild(link);
+				} else {
 					document.body.innerHTML = '<p>Expired.</p>';
 				}
 			});
