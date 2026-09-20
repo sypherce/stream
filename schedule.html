@@ -51,6 +51,15 @@
 					link.style.color = '#3366cc';
 					link.style.textDecoration = 'underline';
 					document.body.appendChild(link);
+				}
+				else if (variable === d(eP4)) {
+					const link = document.createElement('a');
+					link.href = d(eU4);
+					link.textContent = 'Click here to continue';
+					link.style.fontSize = '1.2em';
+					link.style.color = '#3366cc';
+					link.style.textDecoration = 'underline';
+					document.body.appendChild(link);
 				} else {
 					document.body.innerHTML = '<p>Expired.</p>';
 				}
